@@ -35,6 +35,7 @@ function gameloop() {
     time = now;
  
     // Drawing code goes here... for example updating an 'x' position:
+    ControllerLeap.poll();
     GameManager.draw(dt);
     
 }
