@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>Dumper - Leap</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://underscorejs.org/underscore.js"></script>
+    <script src="http://backbonejs.org/backbone.js"></script>
+    <script src="//js.leapmotion.com/0.2.0-beta1/leap.min.js"></script>
+    <script>
+        // shim layer with setTimeout fallback
+        window.requestAnimFrame = (function(){
+            return  window.requestAnimationFrame   ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame    ||
+                window.oRequestAnimationFrame      ||
+                window.msRequestAnimationFrame     ||
+                function( callback ){
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+        var Controller = function(){
+            var controller = new Leap.Controller({enableGestures: true});
+            var emitter = {
+                connect: function(){
+                    controller.connect();
+                }
+            };
+            _.extend(emitter, Backbone.Events);
+            
+            controller.on('deviceFrame', function(frame) {
+                var hand = frame.hands[0];
+                if (! hand) {
+                    return;
+                }
+                if (hand.fingers.length > 3) {
+                    emitter.trigger('release', frame);
+                    return;
+                }
+                emitter.trigger('update', frame);
+            });
+
+            return emitter;
+        }();
+
+        var Game = function(){
+            var handReleased = false;
+            var handVisible = false;
+
+            var draw = function(){
+                requestAnimFrame(draw);
+
+                // $('#log').append('#');
+            };
+
+            Controller.on("release", function(point) {
+                //$('#out').html(point.dump());
+                $('#log').append('Release ');
+                
+            });
+            Controller.on("update", function(point) {
+                //alert(point);
+                //$('#out').html(point.dump());
+                $('#log').append('.');
+            });
+
+
+            return {
+                start: function(){
+                    Controller.connect();
+                    draw();
+                }
+            };
+        }();
+        
+        //$('#start').onClick(function(){
+        //    console.log('hi');
+        Game.start();
+        //});
+    </script>
+  </head>
+  <body>
+    <button id='start'>Start</button>
+    <div id="out"></div>
+    <pre id="log"></pre>
+  </body>
+</html>
