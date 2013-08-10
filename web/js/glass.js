@@ -15,3 +15,8 @@ Glass.draw = function(delta) {
 
     return true;
 };
+
+Glass.disable = function(bool) {
+	console.log('Call disable: ' + bool);
+	this.disabled = bool;
+}

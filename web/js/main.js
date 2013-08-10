@@ -12,7 +12,9 @@ $(document).ready(function() {
 
     GameManager.init(canvases, width, height);    
     ControllerMouse.init(document.getElementById('effects'));
-    GameManager.addController(ControllerMouse);
+    ControllerLeap.init({ width: GameManager.width, height: GameManager.height});
+    GameManager.addController(ControllerLeap);
+    //GameManager.addController(ControllerMouse);
     Background.init();
 
     var table = _.extend({}, GameObject, PhysicsObject, {

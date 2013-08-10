@@ -9,6 +9,7 @@ var Sprite = {
     scaledWidth: 40,
     scaledHeight: 40,
     drawCanvas : 'glass',
+    disabled : false,
     
     initSprite: function() {
         this.image = new Image();

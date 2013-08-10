@@ -41,7 +41,8 @@ var GameManager = {
             hand.x = point.x / self.scaleRatio;
             hand.y = point.y / self.scaleRatio;
             console.log(hand);
-            console.log(glass);
+            
+            // This isn't as accurate as it could be
             if (hand.x <  ((glass.x + 70))
             && (hand.x >= (glass.x - 60)) 
             && (hand.y >= (glass.y - 120))
@@ -49,7 +50,7 @@ var GameManager = {
             ) {
                 console.log('grabbed the glass!');
                 hand.state = 'holding';
-                console.disabled = true;
+                glass.disable(true);
                 return;
             }
             hand.state = 'closed';
@@ -58,12 +59,10 @@ var GameManager = {
             if (hand.state == 'open') {
                 return;
             }
-
             if (hand.state == 'holding') {
                 console.log('release the glass');
-                glass.disabled = false;
+                glass.disable(false);
             }
-
             hand.state = 'open';
         })
     },
