@@ -27,6 +27,20 @@ var GameManager = {
             hand.x = point.x;
             hand.y = point.y;
         });
+
+        this.controller.on('grab', function(point){
+            var isHolding = true;
+            if (isHolding) {
+                hand.state = 'holding';
+                return; 
+            }
+
+            hand.state = 'closed';
+        });
+
+        this.controller.on('release', function(){
+            hand.state = 'open';
+        })
     },
 
     setDimensions: function(width, height) {
