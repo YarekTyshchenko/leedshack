@@ -16,7 +16,6 @@ Hand.draw = function(delta) {
     if (this.disabled) {
         return false;
     }
-
     this.updatePosition(delta);
     this.drawSprite();
 

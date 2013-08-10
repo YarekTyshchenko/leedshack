@@ -10,19 +10,18 @@ var GameManager = {
     width: 750,
     height: 500,
     scaleRatio : 1,
+    hand: null, 
+    glass: null,
     
     init: function(canvasIds, width, height) {
         this.setDimensions(width, height);
         this.initCanvases(canvasIds);
+        this.addHand(_.extend({}, Hand));
     },
-
 
     addController: function(controller) {
         this.controller = controller;
-    },
-
-    addHand: function(hand) {
-        this.hand = hand;
+        var hand = this.hand;
         this.controller.on('update', function(point) {
             hand.x = point.x;
             hand.y = point.y;
@@ -41,6 +40,11 @@ var GameManager = {
         this.controller.on('release', function(){
             hand.state = 'open';
         })
+    },
+
+    addHand: function(hand) {
+        this.hand = hand;
+        this.addObject(hand);
     },
 
     setDimensions: function(width, height) {

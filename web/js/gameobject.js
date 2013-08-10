@@ -20,7 +20,7 @@ var GameObject = {
     },
     
     draw : function(delta) {
-        
+    
     },
 
     updatePosition: function(delta) {

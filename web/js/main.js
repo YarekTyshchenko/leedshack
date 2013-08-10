@@ -15,10 +15,6 @@ $(document).ready(function() {
     GameManager.addController(ControllerMouse);
     Background.init();
 
-    var hand = _.extend({}, Hand);
-    GameManager.addHand(hand);
-    GameManager.addObject(hand);
-
     var table = _.extend({}, GameObject, PhysicsObject, {
         width: 100,
         height: 10,
