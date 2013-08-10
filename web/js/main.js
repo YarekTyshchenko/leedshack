@@ -11,8 +11,8 @@ $(document).ready(function() {
     var height = document.documentElement.clientHeight;
 
     GameManager.init(canvases, width, height);    
-    ControllerLeap.init({ width: GameManager.width, height: GameManager.height });
-    GameManager.addController(ControllerLeap);
+    ControllerMouse.init(window);
+    GameManager.addController(ControllerMouse);
     Background.init();
 
     var hand = _.extend({}, Hand);

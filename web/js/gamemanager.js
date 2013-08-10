@@ -9,6 +9,7 @@ var GameManager = {
     refreshCanvases: [],
     width: 750,
     height: 500,
+    scaleRatio : 1,
     
     init: function(canvasIds, width, height) {
         this.setDimensions(width, height);
@@ -41,6 +42,7 @@ var GameManager = {
             this.height = width * alt;
             this.width = width;
         }
+        this.scaleRatio = this.width/1920;
     },
 
     initCanvases: function(canvases) {

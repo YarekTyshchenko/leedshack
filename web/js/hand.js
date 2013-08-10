@@ -1,8 +1,8 @@
-var Hand = _.extend({}, GameObject, PhysicsObject);
+var Hand = _.extend({}, GameObject, PhysicsObject, Sprite);
 
-Hand.speed = 0;
-
-Hand.sprite = null;
+Hand.imageSrc = 'images/armbottom.png';
+Hand.spriteWidth = 312;
+Hand.spriteHeight = 200;
 Hand.type = 'Hand';
 Hand.draw = function(delta) {
     if (this.disabled) {
@@ -10,9 +10,7 @@ Hand.draw = function(delta) {
     }
 
     this.updatePosition(delta);
-    context = GameManager.getCanvas('glass');
-    context.fillStyle="#183a0d";
-    context.fillRect(this.x, this.y, 10, 10);
+    this.drawSprite();
 
     return true;
 };
