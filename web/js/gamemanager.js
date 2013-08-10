@@ -15,13 +15,22 @@ var GameManager = {
         this.context = context;
     },
 
-        
+    addController: function(controller) {
+        this.controller = controller;
+    },
+
+    addHand: function(hand) {
+        this.hand = hand;
+        this.controller.on('update', function(point) {
+            hand.x = point.x;
+            hand.y = point.y;
+        });
+    },
     /**
      * Draw the current state of the game, 
      * delta is the time passed since the last frame
      */
     draw: function(delta) {
-        console.log("here");
         this.context.clearRect(0, 0, this.width, this.height);
         for (i in this.objects) {
             if (!this.objects[i].draw(delta)) {
