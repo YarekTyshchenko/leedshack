@@ -17,77 +17,96 @@
                     window.setTimeout(callback, 1000 / 60);
                 };
         })();
-        var Controller = function(){
-            var controller = new Leap.Controller({enableGestures: true});
-            var emitter = {
-                connect: function(){
-                    controller.connect();
-                }
-            };
-            _.extend(emitter, Backbone.Events);
+        $(function(){
+            var Controller = function(){
+                var controller = new Leap.Controller({enableGestures: true});
+                var emitter = {
+                    connect: function(){
+                        controller.connect();
+                    }
+                };
+                _.extend(emitter, Backbone.Events);
+                
+                controller.on('deviceFrame', function(frame) {
+                    var hand = frame.hands[0];
+                    if (! hand) {
+                        emitter.trigger('update', null);
+                        return;
+                    }
+                    if (hand.fingers.length > 3) {
+                        emitter.trigger('release', hand);
+                        return;
+                    }
+                    emitter.trigger('update', hand);
+                });
+
+                return emitter;
+            }();
+
+            var Game = function(){
+                var handReleased = false;
+                var handVisible = false;
+                var point = {x:0, y:0};
+                var scale = 1;
+                var _context = $('#canvas')[0].getContext('2d');
+
+                var _draw = function(x1, y1) {
+                    _context.clearRect(0,0, 1000, 1000);
+                    _context.beginPath();
+                    _context.arc(x1, y1, 10, 0, Math.PI*2, true);
+                    _context.closePath();
+                    _context.fill();
+                };
+
+                var draw = function(){
+                    requestAnimFrame(draw);
+                    $('#log').text(
+                        ['Hand visible: ', handVisible, ', Hand Released: ', handReleased].join(' '));
+                    _draw(point.x, point.y);
+                    // $('#log').append('#');
+                };
+
+                Controller.on("release", function(point) {
+                    //$('#out').html(point.dump());
+                    //$('#log').append('Release ');
+                    handReleased = true;
+                });
+                Controller.on("update", function(point) {
+                    handReleased = false;
+                    if (! point) {
+                        handVisible = false;
+                        return;
+                    }
+                    handVisible = true;
+
+
+                    point.x = point.palmPosition[0] * scale;
+                    point.y = point.palmPosition[1] * scale;
+
+                    //$('#out').html(point.dump());
+                    //$('#log').append('.');
+                });
+
+
+                return {
+                    start: function(){
+                        Controller.connect();
+                        draw();
+                    }
+                };
+            }();
             
-            controller.on('deviceFrame', function(frame) {
-                var hand = frame.hands[0];
-                if (! hand) {
-                    emitter.trigger('update', null);
-                    return;
-                }
-                if (hand.fingers.length > 3) {
-                    emitter.trigger('release', frame);
-                    return;
-                }
-                emitter.trigger('update', frame);
-            });
-
-            return emitter;
-        }();
-
-        var Game = function(){
-            var handReleased = false;
-            var handVisible = false;
-
-            var draw = function(){
-                requestAnimFrame(draw);
-                $('#log').text(['Hand visible: ', handVisible, ', Hand Released: ', handReleased].join(' '));
-                // $('#log').append('#');
-            };
-
-            Controller.on("release", function(point) {
-                //$('#out').html(point.dump());
-                //$('#log').append('Release ');
-                handReleased = true;
-            });
-            Controller.on("update", function(point) {
-                handReleased = false;
-                if (! point) {
-                    handVisible = false;
-                    return;
-                }
-                handVisible = true;
-
-                //alert(point);
-                //$('#out').html(point.dump());
-                //$('#log').append('.');
-            });
-
-
-            return {
-                start: function(){
-                    Controller.connect();
-                    draw();
-                }
-            };
-        }();
-        
-        //$('#start').onClick(function(){
-        //    console.log('hi');
-        Game.start();
-        //});
+            //$('#start').onClick(function(){
+            //    console.log('hi');
+            Game.start();
+            //});
+        });
     </script>
   </head>
   <body>
     <button id='start'>Start</button>
     <div id="out"></div>
     <pre id="log"></pre>
+    <canvas id='canvas'></canvas>
   </body>
 </html>
