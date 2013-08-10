@@ -1,4 +1,4 @@
-var Hand = _.extend({}, GameObject);
+var Hand = _.extend({}, GameObject, PhysicsObject);
 
 Hand.speed = 0;
 
@@ -10,7 +10,7 @@ Hand.draw = function(delta) {
     }
 
     this.updatePosition(delta);
-    context = GameManager.context;
+    context = GameManager.getCanvas('glass');
     context.fillStyle="#183a0d";
     context.fillRect(this.x, this.y, 10, 10);
 

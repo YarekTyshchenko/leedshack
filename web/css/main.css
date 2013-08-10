@@ -1,15 +1,31 @@
-#background {
-    z-index: 100;
+html, body {
+  width:  100%;
+  height: 100%;
+  margin: 0px;
+}
+
+canvas {
     position:absolute;
-    left:10px;
-    top:10px;
+
     border: 1px solid black;
 }
 
-#gamearea {
+#background {
+    z-index: 100;
+}
+
+#people {
     z-index: 200;
-    position:absolute;
-    left:10px;
-    top:10px;
-    border: 10px solid black;
+}
+
+#bar {
+    z-index: 300;
+}
+
+#glass {
+    z-index: 400;
+}
+
+#effects {
+    z-index: 500;
 }
