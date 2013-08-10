@@ -12,7 +12,6 @@ $(document).ready(function() {
 
     GameManager.init(canvases, width, height);    
     ControllerMouse.init(document.getElementById('effects'));
-    console.log(document.getElementById('background'));
     GameManager.addController(ControllerMouse);
     Background.init();
 
