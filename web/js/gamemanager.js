@@ -35,8 +35,8 @@ var GameManager = {
         var desired = 16/9;
         var alt = 9/16;
         if (ratio > desired) {
-            this.width = height * desired;
-            this.height = height;
+            this.width = Math.floor(height * desired);
+            this.height = Math.floor(height);
         } else {
             this.height = width * alt;
             this.width = width;
