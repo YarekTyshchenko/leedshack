@@ -29,6 +29,7 @@
             controller.on('deviceFrame', function(frame) {
                 var hand = frame.hands[0];
                 if (! hand) {
+                    emitter.trigger('update', null);
                     return;
                 }
                 if (hand.fingers.length > 3) {
@@ -47,19 +48,26 @@
 
             var draw = function(){
                 requestAnimFrame(draw);
-
+                $('#log').text(['Hand visible: ', handVisible, ', Hand Released: ', handReleased].join(' '));
                 // $('#log').append('#');
             };
 
             Controller.on("release", function(point) {
                 //$('#out').html(point.dump());
-                $('#log').append('Release ');
-                
+                //$('#log').append('Release ');
+                handReleased = true;
             });
             Controller.on("update", function(point) {
+                handReleased = false;
+                if (! point) {
+                    handVisible = false;
+                    return;
+                }
+                handVisible = true;
+
                 //alert(point);
                 //$('#out').html(point.dump());
-                $('#log').append('.');
+                //$('#log').append('.');
             });
 
 
