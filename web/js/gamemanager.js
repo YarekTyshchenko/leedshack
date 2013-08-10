@@ -17,6 +17,7 @@ var GameManager = {
         this.setDimensions(width, height);
         this.initCanvases(canvasIds);
         this.addHand(_.extend({}, Hand));
+        this.addGlass(_.extend({}, Glass));
     },
 
     addController: function(controller) {
@@ -45,6 +46,11 @@ var GameManager = {
     addHand: function(hand) {
         this.hand = hand;
         this.addObject(hand);
+    },
+
+    addGlass: function(glass) {
+        this.glass = glass;
+        this.addObject(glass);
     },
 
     setDimensions: function(width, height) {
