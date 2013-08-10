@@ -20,7 +20,7 @@ var GameObject = {
     },
     
     draw : function(delta) {
-        
+    
     },
 
     updatePosition: function(delta) {
@@ -29,7 +29,7 @@ var GameObject = {
     },
 
     getId: function() {
-        this.id = this.type + '-' + Math.random();
+        return this.type + '-' + Math.random();
     }
 }
 

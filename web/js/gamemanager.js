@@ -9,23 +9,48 @@ var GameManager = {
     refreshCanvases: [],
     width: 750,
     height: 500,
+    scaleRatio : 1,
+    hand: null, 
+    glass: null,
     
     init: function(canvasIds, width, height) {
         this.setDimensions(width, height);
         this.initCanvases(canvasIds);
+        this.addHand(_.extend({}, Hand));
+        this.addGlass(_.extend({}, Glass));
     },
-
 
     addController: function(controller) {
         this.controller = controller;
-    },
-
-    addHand: function(hand) {
-        this.hand = hand;
+        var hand = this.hand;
         this.controller.on('update', function(point) {
             hand.x = point.x;
             hand.y = point.y;
         });
+
+        this.controller.on('grab', function(point){
+            var isHolding = true;
+            if (isHolding) {
+                hand.state = 'holding';
+                return; 
+            }
+
+            hand.state = 'closed';
+        });
+
+        this.controller.on('release', function(){
+            hand.state = 'open';
+        })
+    },
+
+    addHand: function(hand) {
+        this.hand = hand;
+        this.addObject(hand);
+    },
+
+    addGlass: function(glass) {
+        this.glass = glass;
+        this.addObject(glass);
     },
 
     setDimensions: function(width, height) {
@@ -35,12 +60,13 @@ var GameManager = {
         var desired = 16/9;
         var alt = 9/16;
         if (ratio > desired) {
-            this.width = height * desired;
-            this.height = height;
+            this.width = Math.floor(height * desired);
+            this.height = Math.floor(height);
         } else {
             this.height = width * alt;
             this.width = width;
         }
+        this.scaleRatio = this.width/1920;
     },
 
     initCanvases: function(canvases) {
@@ -85,6 +111,9 @@ var GameManager = {
         }
     },
     addObject: function(gameObject) {
+        if (! gameObject.id) {
+            gameObject.id = gameObject.getId();
+        }
         this.objects[gameObject.id] = gameObject;
     },
     
