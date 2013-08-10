@@ -29,7 +29,7 @@ var GameObject = {
     },
 
     getId: function() {
-        this.id = this.type + '-' + Math.random();
+        return this.type + '-' + Math.random();
     }
 }
 

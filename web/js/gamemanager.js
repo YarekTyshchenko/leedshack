@@ -85,6 +85,9 @@ var GameManager = {
         }
     },
     addObject: function(gameObject) {
+        if (! gameObject.id) {
+            gameObject.id = gameObject.getId();
+        }
         this.objects[gameObject.id] = gameObject;
     },
     
