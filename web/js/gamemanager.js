@@ -5,15 +5,16 @@ var GameManager = {
     
     objects : {},
     particles: {},
-    canvas: null, 
-    context: null,
+    canvases: {}, 
+    refreshCanvases: [],
     width: 750,
     height: 500,
     
-    init : function(canvas, context) {
-        this.canvas = canvas;
-        this.context = context;
+    init: function(canvasIds, width, height) {
+        this.setDimensions(width, height);
+        this.initCanvases(canvasIds);
     },
+
 
     addController: function(controller) {
         this.controller = controller;
@@ -26,12 +27,45 @@ var GameManager = {
             hand.y = point.y;
         });
     },
+
+    setDimensions: function(width, height) {
+        width = width;
+        heigth = height ;
+        var ratio = width/height;
+        var desired = 16/9;
+        var alt = 9/16;
+        if (ratio > desired) {
+            this.width = height * desired;
+            this.height = height;
+        } else {
+            this.height = width * alt;
+            this.width = width;
+        }
+    },
+
+    initCanvases: function(canvases) {
+        for (var canvas in canvases) {
+            var context = document.getElementById(canvas).getContext('2d');
+            context.canvas.width = this.width;
+            context.canvas.height = this.height;
+            this.canvases[canvas] = context;
+            if (canvases[canvas]) {
+                this.refreshCanvases.push(canvas);
+            }
+        }
+    },
+
+    getCanvas: function(name) {
+        return this.canvases[name];
+    },
+        
     /**
      * Draw the current state of the game, 
      * delta is the time passed since the last frame
      */
     draw: function(delta) {
-        this.context.clearRect(0, 0, this.width, this.height);
+        this.clearCanvases();
+
         for (i in this.objects) {
             if (!this.objects[i].draw(delta)) {
                 delete(this.objects[i]);
@@ -44,9 +78,14 @@ var GameManager = {
         }
     },
     
+    clearCanvases: function() {
+        for (var i = 1; i < this.refreshCanvases.length -1; i++) {
+
+            this.canvases[this.refreshCanvases[i]].clearRect(0, 0, this.width, this.height);
+        }
+    },
     addObject: function(gameObject) {
         this.objects[gameObject.id] = gameObject;
-        
     },
     
     addParticle: function(gameObject) {

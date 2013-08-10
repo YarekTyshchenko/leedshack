@@ -10,7 +10,7 @@ Hand.draw = function(delta) {
     }
 
     this.updatePosition(delta);
-    context = GameManager.context;
+    context = GameManager.getCanvas('glass');
     context.fillStyle="#183a0d";
     context.fillRect(this.x, this.y, 10, 10);
 
