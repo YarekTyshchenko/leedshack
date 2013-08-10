@@ -12,20 +12,23 @@ var GameManager = {
     scaleRatio : 1,
     hand: null, 
     glass: null,
+    table: null,
     
     init: function(canvasIds, width, height) {
         this.setDimensions(width, height);
         this.initCanvases(canvasIds);
         this.addHand(_.extend({}, Hand));
         this.addGlass(_.extend({}, Glass));
+        this.addTable(_.extend({}, Table));
     },
 
     addController: function(controller) {
         this.controller = controller;
         var hand = this.hand;
+        var self = this;
         this.controller.on('update', function(point) {
-            hand.x = point.x;
-            hand.y = point.y;
+            hand.x = point.x / self.scaleRatio;
+            hand.y = point.y / self.scaleRatio;
         });
 
         this.controller.on('grab', function(point){
@@ -51,6 +54,11 @@ var GameManager = {
     addGlass: function(glass) {
         this.glass = glass;
         this.addObject(glass);
+    },
+
+    addTable: function(table) {
+        this.table = table;
+        this.addObject(table);
     },
 
     setDimensions: function(width, height) {
@@ -105,8 +113,7 @@ var GameManager = {
     },
     
     clearCanvases: function() {
-        for (var i = 1; i < this.refreshCanvases.length -1; i++) {
-
+        for (var i = 0; i <= this.refreshCanvases.length -1; i++) {
             this.canvases[this.refreshCanvases[i]].clearRect(0, 0, this.width, this.height);
         }
     },

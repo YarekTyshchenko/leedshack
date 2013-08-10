@@ -30,7 +30,7 @@ var Sprite = {
         var context = GameManager.getCanvas(this.drawCanvas);
 
         context.drawImage(
-            this.image, this.x, this.y,
+            this.image, this.x * GameManager.scaleRatio, this.y * GameManager.scaleRatio,
             this.scaledWidth, this.scaledHeight
         );
     }

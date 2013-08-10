@@ -11,7 +11,8 @@ $(document).ready(function() {
     var height = document.documentElement.clientHeight;
 
     GameManager.init(canvases, width, height);    
-    ControllerMouse.init(window);
+    ControllerMouse.init(document.getElementById('effects'));
+    console.log(document.getElementById('background'));
     GameManager.addController(ControllerMouse);
     Background.init();
 

@@ -3,12 +3,12 @@ var Glass = _.extend({}, GameObject, PhysicsObject, Sprite);
 Glass.imageSrc = 'images/pint.png';
 Glass.spriteWidth = 50;
 Glass.spriteHeight = 100;
-Glass.x = 300;
-Glass.y = 300;
+Glass.x = 1600;
+Glass.y = 600;
 Glass.type = 'Glass';
 Glass.draw = function(delta) {
     if (this.disabled) {
-        return false;
+        return true;
     }
     this.updatePosition(delta);
     this.drawSprite();
