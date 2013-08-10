@@ -1,4 +1,4 @@
-var Hand = _.extend({}, GameObject);
+var Hand = _.extend({}, GameObject, PhysicsObject);
 
 Hand.speed = 0;
 
