@@ -1,9 +1,9 @@
 $(document).ready(function() {
     var canvas = document.getElementById('gamearea');
     var context = canvas.getContext('2d');
-    ControllerMouse.init(canvas);
+    ControllerLeap.init();
     GameManager.init(canvas, context);
-    GameManager.addController(ControllerMouse);
+    GameManager.addController(ControllerLeap);
     var hand = _.extend({}, Hand);
     GameManager.addHand(hand);
     GameManager.addObject(hand);
