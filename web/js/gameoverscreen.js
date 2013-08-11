@@ -30,9 +30,13 @@ GameOverScreen.draw = function(delta) {
     context.fillText(
         'Game Over', GameManager.width/2, GameManager.height/2
     );
+    context.font = "bold " + size * 0.3 + "px sans-serif";
+    context.fillText(
+        'You Scored: ' + GameManager.score, GameManager.width/2, GameManager.height/2 + 40
+    );
     context.font = "bold " + size * 0.5 + "px sans-serif";
     context.fillText(
-        'Click to try again', GameManager.width/2, GameManager.height/2 + 50
+        'Click to try again', GameManager.width/2, GameManager.height/2 + 100
     );
 
     return true; 
