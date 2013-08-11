@@ -1,6 +1,6 @@
 var PhysicsWorld = function() {
     // pixels per meter
-    var _scale = 100;
+    var _scale = 300;
 
     var   b2Vec2 = Box2D.Common.Math.b2Vec2
             ,  b2AABB = Box2D.Collision.b2AABB
@@ -86,7 +86,7 @@ var PhysicsWorld = function() {
          
             boxDef.type = b2Body.b2_dynamicBody;
             boxFixDef.shape = new b2PolygonShape;
-            boxDef.position.Set(_s(x), _s(y));
+            boxDef.position.Set(_s(x+width/2), _s(y+height/2));
             //boxDef.angle = angle * (Math.PI / 180) || 0;
             boxFixDef.shape.SetAsBox(_s(width)/2, _s(height)/2);
             return world.CreateBody(boxDef).CreateFixture(boxFixDef);
@@ -104,9 +104,6 @@ var PhysicsWorld = function() {
             //boxDef.angle = angle * (Math.PI / 180) || 0;
             boxFixDef.shape.SetAsBox(_s(width)/2, _s(height)/2);
             return world.CreateBody(boxDef).CreateFixture(boxFixDef);
-        },
-        addObject: function(object) {
-            //_bodies.push(object);
         }
     };
 }();

@@ -28,7 +28,7 @@ Glass.init = function() {
 };
 
 Glass.previousPoints = [];
-Glass.counter = 1;
+Glass.counter = 0;
 
 Glass.setPreviousPoint = function(x, y) {
     this.previousPoints[this.counter%5] = {x: x, y: y};
@@ -44,14 +44,13 @@ Glass.getVector = function(x, y) {
         tot_x += point.x ;
         tot_y += point.y ;
     }
-    return {x: (x - tot_x/length) * 2, y: (y - tot_y/length) * 2};
+    return {x: (x - tot_x/length), y: (y - tot_y/length)};
 }
 
 Glass.onRelease = function(x, y) {
     this.disable(false);
     this.jumpTo(x, y);
     var vector = this.getVector(x, y);
-    console.log(vector);
     this.applyImpulse(vector.x, vector.y);
     this.state = 'free';
 }
