@@ -18,10 +18,10 @@ Glass.draw = function(delta) {
     return true;
 };
 
-var oldInit = Glass.init;
+Glass.oldInit = Glass.init;
 
 Glass.init = function() {
-    oldInit.apply(this);
+    this.oldInit.apply(this);
     EventManager.on('controller:update', _.bind(Glass.onUpdate, this));
     EventManager.on('hand:grabbed-glass', _.bind(Glass.onGrabbed, this));
     EventManager.on('hand:release', _.bind(Glass.onRelease, this));

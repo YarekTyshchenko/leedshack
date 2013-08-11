@@ -19,10 +19,10 @@ Hand.spriteStates = {
 // - Holding
 Hand.state = 'open';
 
-oldInit = Hand.init;
+Hand.oldInit = Hand.init;
 
 Hand.init = function() {
-    oldInit.apply(this);
+    this.oldInit.apply(this);
     EventManager.on('controller:update', _.bind(Hand.onUpdate, this));
     EventManager.on('controller:grab', _.bind(Hand.onGrab, this));
     EventManager.on('controller:release', _.bind(Hand.onRelease, this));
