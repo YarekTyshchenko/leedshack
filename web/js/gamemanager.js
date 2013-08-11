@@ -60,52 +60,6 @@ var GameManager = {
 
     addController: function(controller) {
         this.controller = controller;
-        var hand = this.hand;
-        var self = this;
-        var glass = this.glass;
-        var isHolding = false;
-        var scaleFactor = this.scaleFactor;
-        var previousPoint;
-        EventManager.on('controller:update', function(point) {
-            previousPoint = {x: hand.x, y:hand.y};
-            hand.x = point.x / self.scaleRatio;
-            hand.y = point.y / self.scaleRatio;
-
-            if (hand.state == 'holding') {
-                glass.x = hand.x;
-                glass.y = hand.y
-            }
-        });
-        EventManager.on('controller:grab', function(point){
-            if (hand.state == 'closed') {
-                return;
-            }
-            hand.x = point.x / self.scaleRatio;
-            hand.y = point.y / self.scaleRatio;
-            
-            // This isn't as accurate as it could be
-            if (hand.x <  ((glass.x + 70))
-                && (hand.x >= (glass.x - 60)) 
-                && (hand.y >= (glass.y - 120))
-                && (hand.y <  ((glass.y) + 7))
-            ) {
-                hand.state = 'holding';
-                glass.disable(true);
-                return;
-            }
-            hand.state = 'closed';
-        });
-        EventManager.on('controller:release', function(){
-            if (hand.state == 'open') {
-                return;
-            }
-            if (hand.state == 'holding') {
-                glass.disable(false);
-                glass.jumpTo(hand.x, hand.y);
-                glass.applyImpulse(hand.x - previousPoint.x, hand.y - previousPoint.y);
-            }
-            hand.state = 'open';
-        })
     },
 
     addHand: function(hand) {

@@ -19,9 +19,55 @@ Hand.spriteStates = {
 // - Holding
 Hand.state = 'open';
 
+oldInit = Hand.init;
+
+Hand.init = function() {
+    oldInit();
+    EventManager.on('controller:update', _.bind(Hand.onUpdate, this));
+    EventManager.on('controller:grab', _.bind(Hand.onGrab, this));
+    EventManager.on('controller:release', _.bind(Hand.onRelease, this));
+};
+
+Hand.onRelease = function(point) {
+    if (this.state == 'open') {
+        return;
+    }
+    if (this.state == 'holding') {
+        EventManager.trigger('hand:release', this.x, this.y);
+    }
+    this.state = 'open';
+};
+
+Hand.onGrab = function(point) {
+    if (this.state == 'closed') {
+        return;
+    }
+    this.setPosition(point);
+    glass = GameManager.glass;
+    if (this.x <  ((glass.x + 70))
+        && (this.x >= (glass.x - 60)) 
+        && (this.y >= (glass.y - 120))
+        && (this.y <  ((glass.y) + 7))
+    ) {
+        this.state = 'holding';
+        EventManager.trigger('hand:grabbed-glass', point);
+        return;
+    }
+    this.state = 'closed';
+};
+
+Hand.onUpdate = function(point) {
+    this.setPosition(point);
+};
+
+Hand.setPosition = function(point) {
+    this.x = point.x / GameManager.scaleRatio;
+    this.y = point.y / GameManager.scaleRatio;
+};
+
 Hand.draw = function(delta) {
     if (this.disabled) {
-        return false;
+        return true;
     }
     this.updatePosition(delta);
     this.drawSprite();

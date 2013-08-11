@@ -34,7 +34,7 @@ var PhysicsObject = function() {
 	    applyImpulse: function(x, y) {
 	    	if (x > 10) x = 10;
 	    	if (y > 10) y = 10;
-	    	body.GetBody().ApplyImpulse(new Box2D.Common.Math.b2Vec2(x/2, y/2), body.GetBody().GetWorldCenter());
+	    	//body.GetBody().ApplyImpulse(new Box2D.Common.Math.b2Vec2(x/2, y/2), body.GetBody().GetWorldCenter());
 	    }
 	}
 }();
