@@ -1,5 +1,5 @@
 var PhysicsWorld = function() {
-    // Meters per pixel
+    // pixels per meter
     var _scale = 100;
 
     var   b2Vec2 = Box2D.Common.Math.b2Vec2
