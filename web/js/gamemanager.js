@@ -15,6 +15,8 @@ var GameManager = {
     table: null,
     coaster: null,
     people: [],
+    lives: 3,
+    score: 0,
     
     init: function(canvasIds, width, height) {
         this.setDimensions(width, height);
@@ -27,6 +29,13 @@ var GameManager = {
         EventManager.on('hand:hit-bounds', _.bind(function(point) {
             this.hand.onRelease(point);
         }, this));
+
+        this.initHud();
+    },
+
+    initHud: function() {
+        var score = _.extend({}, Score);
+        this.addObject(score);
     },
 
     addPeople: function() {

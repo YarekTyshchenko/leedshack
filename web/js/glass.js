@@ -6,7 +6,7 @@ Glass.spriteHeight = 150;
 Glass.x = 1600;
 Glass.y = 600;
 Glass.type = 'Glass';
-Glass.state = 'free';
+Glass.state = 'rest';
 
 Glass.draw = function(delta) {
     if (this.disabled) {
