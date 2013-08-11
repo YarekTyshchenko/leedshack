@@ -15,9 +15,11 @@ var PhysicsObject = function() {
 	  //       this.body = world.CreateBody(bodyDef);
 	  //       this.body.CreateFixture(fixDef);
 		  	body = PhysicsWorld.createBox(
-		  		this.x, this.y,
-		     	this.width || this.spriteWidth, this.height || this.spriteHeight
+		  		this.physicsX || this.x, this.physicsY || this.y,
+		     	this.physicsWidth || this.spriteWidth || this.width,
+		     	this.physicsHeight || this.spriteHeight || this.height
 			);
+			//body.GetBody().SetMassData(this.mass || 1);
 	  	},
 	    updatePosition: function(delta) {
 	    	var vector = body.GetBody().GetPosition();
@@ -30,6 +32,8 @@ var PhysicsObject = function() {
 	    	);
 	    },
 	    applyImpulse: function(x, y) {
+	    	if (x > 10) x = 10;
+	    	if (y > 10) y = 10;
 	    	body.GetBody().ApplyImpulse(new Box2D.Common.Math.b2Vec2(x/2, y/2), body.GetBody().GetWorldCenter());
 	    }
 	}

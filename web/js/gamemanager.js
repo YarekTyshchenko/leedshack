@@ -93,7 +93,7 @@ var GameManager = {
             ) {
                 console.log('grabbed the glass!');
                 hand.state = 'holding';
-                //glass.disable(true);
+                glass.disable(true);
                 return;
             }
             hand.state = 'closed';
@@ -104,7 +104,7 @@ var GameManager = {
             }
             if (hand.state == 'holding') {
                 console.log('release the glass');
-                //glass.disable(false);
+                glass.disable(false);
                 glass.jumpTo(hand.x, hand.y);
                 glass.applyImpulse(hand.x - previousPoint.x, hand.y - previousPoint.y);
             }

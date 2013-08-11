@@ -72,7 +72,7 @@ var PhysicsWorld = function() {
         createBox: function(x, y, width, height, angle) {
             var boxFixDef = new b2FixtureDef;
             boxFixDef.density = 1.0;
-            boxFixDef.friction = 2.0;
+            boxFixDef.friction = 0.5;
             boxFixDef.restitution = 0.01;
             var boxDef = new b2BodyDef;
             boxDef.fixedRotation = true;

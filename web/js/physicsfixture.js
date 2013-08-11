@@ -15,8 +15,9 @@ var PhysicsFixture = {
   //       this.body.CreateFixture(fixDef);
     //body = PhysicsWorld.createFixture(this.x, this.y, this.width, this.height);
   	body = PhysicsWorld.createFixture(
-      this.x, this.y,
-      this.width || this.spriteWidth, this.height || this.spriteHeight
+        this.physicsX || this.x, this.physicsY || this.y,
+        this.physicsWidth || this.spriteWidth || this.width,
+        this.physicsHeight || this.spriteHeight || this.height
     );
 
     //console.log(this.width);
