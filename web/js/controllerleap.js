@@ -46,7 +46,6 @@ var ControllerLeap = function(){
 		if (!hand) {
 			return;
 		}
-
 		// Cache the calculations for performance enhancement
 		if (scaleFactor == null) {
 			scaleFactor = {
@@ -54,18 +53,15 @@ var ControllerLeap = function(){
 				y: (constructParams.height / ib.height)
 			};
 		}
-	
 		if (aWidth == null) {
 			aWidth = ib.width / 2;
 			aHeight = ib.height / 2;
 		}
-
 		// This inverses the up and down, adds the scale and addtion factors. 
 		var pointer = { 
 			x: (hand.palmPosition[0] + aWidth) * scaleFactor.x, 
 			y: ((ib.height - hand.palmPosition[1]) + aHeight) * scaleFactor.y
 		};
-
 		if ((hand.fingers.length <= 2) != grabbed) {
 			if (hand.fingers.length <= 2) {
 				leap.trigger("grab", pointer);
@@ -80,7 +76,6 @@ var ControllerLeap = function(){
 	};
 
 	var leap = {
-
 		/**
 		 * Initialise 
 		 * Initialises the LEAP Controller and sets up the params.
@@ -92,7 +87,6 @@ var ControllerLeap = function(){
 			controller.connect();
 			constructParams = element;		
 		},
-
 		/**
 		 * Poll the controller input data
 		 * 
