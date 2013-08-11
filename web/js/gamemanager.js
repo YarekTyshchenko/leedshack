@@ -36,6 +36,8 @@ var GameManager = {
     initHud: function() {
         var score = _.extend({}, Score);
         this.addObject(score);
+        var lives = _.extend({}, Lives);
+        this.addObject(lives);
     },
 
     addPeople: function() {
