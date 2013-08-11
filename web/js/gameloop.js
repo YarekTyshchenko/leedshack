@@ -28,7 +28,7 @@
 //Game Loop
 var time;
 function gameloop() {
-    requestAnimationFrame(gameloop);
+    GameManager.requestId = requestAnimationFrame(gameloop);
     var now = new Date().getTime(),
         dt = now - (time || now);
  
