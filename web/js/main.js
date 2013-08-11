@@ -13,7 +13,7 @@ $(document).ready(function() {
 
     GameManager.init(canvases, width, height);
     
-    SoundManager.init('/web/mp3s',[
+    SoundManager.init('mp3s',[
     	'yelling.mp3',
     	'clint.mp3',
     	'glass_move.mp3',
