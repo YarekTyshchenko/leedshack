@@ -41,6 +41,7 @@ var GameManager = {
     },
 
     start: function() {
+        time = 0;
         this.score = 0;
         this.lives = 2;
         this.newTurn();
