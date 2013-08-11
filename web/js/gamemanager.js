@@ -26,10 +26,6 @@ var GameManager = {
         this.addTable(_.extend({}, Table));
         this.addPeople();
         this.addCoaster(_.extend({}, Coaster));
-        EventManager.on('hand:hit-bounds', _.bind(function(point) {
-            this.hand.onRelease(point);
-        }, this));
-
         this.initHud();
     },
 

@@ -60,6 +60,7 @@ Hand.onUpdate = function(point) {
     this.setPosition(point);
     if (this.x < 1300 && this.state == 'holding') {
         EventManager.trigger('hand:hit-bounds', {x: this.x, y:this.y});
+        this.onRelease({x: this.x, y:this.y});
     }
 };
 
