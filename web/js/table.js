@@ -9,7 +9,7 @@ Table.y = 600;
 Table.type = 'Table';
 Table.drawn = 0;
 Table.draw = function(delta) {
-    if (this.disabled || this.drawn > 3) {
+    if (this.disabled || this.drawn > 5) {
         return false;
     }
     this.updatePosition(delta);

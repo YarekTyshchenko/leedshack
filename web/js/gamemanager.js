@@ -13,6 +13,7 @@ var GameManager = {
     hand: null, 
     glass: null,
     table: null,
+    people: [],
     
     init: function(canvasIds, width, height) {
         this.setDimensions(width, height);
@@ -20,6 +21,37 @@ var GameManager = {
         this.addHand(_.extend({}, Hand));
         this.addGlass(_.extend({}, Glass));
         this.addTable(_.extend({}, Table));
+        this.addPeople();
+    },
+
+    addPeople: function() {
+        var y = 230;
+        var people = [
+            _.extend({}, Person, {
+                imageSrc : 'images/man1.png',
+                x : 100, 
+                y: y
+            }),
+            _.extend({}, Person, {
+                imageSrc : 'images/woman1.png',
+                x : 350, 
+                y: y
+            }),
+            _.extend({}, Person, {
+                imageSrc : 'images/man2.png',
+                x : 650, 
+                y: y
+            }),
+            _.extend({}, Person, {
+                imageSrc : 'images/woman2.png',
+                x : 900, 
+                y: y
+            })
+        ];
+        for (var i = 0; i <= people.length -1; i++) {
+            this.people.push(people[i]);
+            this.addObject(people[i]);
+        }
     },
 
     addController: function(controller) {

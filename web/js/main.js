@@ -14,8 +14,8 @@ $(document).ready(function() {
     GameManager.init(canvases, width, height);    
     ControllerMouse.init(document.getElementById('effects'));
     ControllerLeap.init({ width: GameManager.width, height: GameManager.height});
-    GameManager.addController(ControllerLeap);
-    //GameManager.addController(ControllerMouse);
+    //GameManager.addController(ControllerLeap);
+    GameManager.addController(ControllerMouse);
     Background.init();
 
     PhysicsWorld.init();
