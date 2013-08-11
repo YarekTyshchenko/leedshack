@@ -30,7 +30,7 @@ $(document).ready(function() {
     Background.init();
 
     PhysicsWorld.init();
-    gameloop();
+    GameManager.start();
 });
 
 function reflect(object) {

@@ -17,6 +17,7 @@ var GameManager = {
     people: [],
     lives: 3,
     score: 0,
+    requestId: null,
     
     init: function(canvasIds, width, height) {
         this.setDimensions(width, height);
@@ -29,6 +30,13 @@ var GameManager = {
         this.initHud();
         EventManager.on('glass:stop', _.bind(GameManager.onGlassStop, this));
         EventManager.on('glass:fall', _.bind(GameManager.onGlassFall, this));
+    },
+
+    start: function() {
+        this.score = 0;
+        this.lives = 5;
+        this.newTurn();
+        gameloop();
     },
 
     initHud: function() {
@@ -160,9 +168,13 @@ var GameManager = {
     },
 
     gameOver: function() {
-        console.log("game over");
+        this.addObject(_.extend({}, GameOverScreen));
+        window.setTimeout(GameManager.stop, 2000);
     },
 
+    stop: function() {
+        window.cancelAnimationFrame(GameManager.requestId);
+    },
     newTurn: function() {
         this.coaster.move();
         this.glass.jumpTo(1600, 600);
