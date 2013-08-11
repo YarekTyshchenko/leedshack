@@ -1,4 +1,7 @@
 var PhysicsWorld = function() {
+    // Meters per pixel
+    var _scale = 100;
+
     var   b2Vec2 = Box2D.Common.Math.b2Vec2
             ,  b2AABB = Box2D.Collision.b2AABB
             ,   b2BodyDef = Box2D.Dynamics.b2BodyDef
@@ -39,6 +42,8 @@ var PhysicsWorld = function() {
         debugDraw.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
         world.SetDebugDraw(debugDraw);
 
+        // Draw walled constraints
+        /*
         bodyDef.type = b2Body.b2_staticBody;
         fixDef.shape = new b2PolygonShape;
         fixDef.shape.SetAsBox(20, 2);
@@ -51,9 +56,10 @@ var PhysicsWorld = function() {
         world.CreateBody(bodyDef).CreateFixture(fixDef);
         bodyDef.position.Set(21.8, 13);
         world.CreateBody(bodyDef).CreateFixture(fixDef);
+        */
     }
-    var _s = function(unit) {
-        return unit/93;
+    var _s = function(pixels) {
+        return pixels / _scale; // Return meters
     }
     return {
         init: _init,
@@ -64,10 +70,11 @@ var PhysicsWorld = function() {
                 10        //position iterations
             );
             world.DrawDebugData();
+            world.ClearForces();
         },
         scale: _s,
-        upScale: function(unit) {
-            return unit * 93;
+        upScale: function(meters) {
+            return meters * _scale; // Return pixels
         },
         createBox: function(x, y, width, height, angle) {
             var boxFixDef = new b2FixtureDef;
@@ -93,7 +100,7 @@ var PhysicsWorld = function() {
          
             boxDef.type = b2Body.b2_staticBody;
             boxFixDef.shape = new b2PolygonShape;
-            boxDef.position.Set(_s(x)+(_s(width)/2), _s(y)+(_s(height)/2));
+            boxDef.position.Set(_s(x+width/2), _s(y+height/2));
             //boxDef.angle = angle * (Math.PI / 180) || 0;
             boxFixDef.shape.SetAsBox(_s(width)/2, _s(height)/2);
             return world.CreateBody(boxDef).CreateFixture(boxFixDef);

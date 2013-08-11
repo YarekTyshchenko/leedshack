@@ -7,12 +7,10 @@ var PhysicsObject = function() {
 		     	this.physicsWidth || this.spriteWidth || this.width,
 		     	this.physicsHeight || this.spriteHeight || this.height
 			);
-			//body.GetBody().SetMassData(this.mass || 1);
-			//console.log(body.GetBody().GetMassData());
 	  	},
 	    updatePosition: function(delta) {
 	    	var vector = body.GetBody().GetPosition();
-	        this.x = PhysicsWorld.upScale(vector.x);
+	        this.x = PhysicsWorld.upScale(vector.x); // Convert to pixels
 	        this.y = PhysicsWorld.upScale(vector.y);
 	    },
 	    jumpTo: function(x, y) {
@@ -21,9 +19,12 @@ var PhysicsObject = function() {
 	    	);
 	    },
 	    applyImpulse: function(x, y) {
-	    	if (x > 10) x = 10;
-	    	if (y > 10) y = 10;
-	    	//body.GetBody().ApplyImpulse(new Box2D.Common.Math.b2Vec2(x/2, y/2), body.GetBody().GetWorldCenter());
-	    }
+        //if (x > 10) x = 10;
+        //if (y > 10) y = 10;
+        body.GetBody().ApplyImpulse(
+            new Box2D.Common.Math.b2Vec2(PhysicsWorld.scale(x), PhysicsWorld.scale(y)),
+                body.GetBody().GetWorldCenter()
+            );
+        }
 	}
 }();
