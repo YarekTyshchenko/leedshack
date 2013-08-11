@@ -42,10 +42,12 @@ var GameManager = {
 
     start: function() {
         this.score = 0;
-        this.lives = 5;
+        this.lives = 2;
         this.newTurn();
         this.state = 'started';
         delete this.objects['game-over'];
+        SoundManager.stopSound('clint');
+        SoundManager.playSound('yelling', true);
         gameloop();
     },
 
@@ -179,6 +181,8 @@ var GameManager = {
 
     gameOver: function() {
         this.addObject(_.extend({}, GameOverScreen));
+        SoundManager.stopSound('yelling');
+        SoundManager.playSound('clint');
         window.setTimeout(GameManager.stop, 2000);
     },
 

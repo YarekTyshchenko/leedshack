@@ -21,7 +21,6 @@ $(document).ready(function() {
     	'noise1.mp3',
     	'noise2.mp3'
     ]);
-    SoundManager.playSound('clint', true);
 
     ControllerMouse.init(document.getElementById('effects'));
     ControllerLeap.init({ width: GameManager.width, height: GameManager.height});
