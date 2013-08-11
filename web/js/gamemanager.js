@@ -27,6 +27,9 @@ var GameManager = {
         this.addPeople();
         this.addCoaster(_.extend({}, Coaster));
         this.initHud();
+        EventManager.on('glass:stop', _.bind(function(point) {
+            console.log(point);
+        }, this));
     },
 
     initHud: function() {

@@ -12,12 +12,17 @@ Glass.draw = function(delta) {
     if (this.disabled) {
         return true;
     }
-    this.updatePosition(delta);
-    this.drawSprite();
 
-    if (! this.isActive()) {
-        EventManager.trigger('glass:stop', {x:this.x, y:this.y});
+    //Check if the glass has stopped moving after a throw
+    var previousPosition = {x: this.x, y: this.y};
+    this.updatePosition(delta);
+    if (this.x == previousPosition.x && this.y == previousPosition.y) {
+        if (this.state == 'free') {
+            this.state = 'rest';
+            EventManager.trigger('glass:stop', previousPosition);
+        }
     }
+    this.drawSprite();
 
     return true;
 };
