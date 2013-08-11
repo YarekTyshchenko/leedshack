@@ -2,7 +2,7 @@ $(document).ready(function() {
     var canvases = {
         'background' : false,
         'people' : true,
-        'bar': false,
+        'bar': true,
         'glass' : true,
         'effects' : true,
         'physics': false

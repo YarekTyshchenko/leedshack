@@ -47,7 +47,7 @@ Hand.onGrab = function(point) {
     if (this.x <  ((glass.x + 70))
         && (this.x >= (glass.x - 60)) 
         && (this.y >= (glass.y - 120))
-        && (this.y <  ((glass.y) + 7))
+        && (this.y <  ((glass.y) + 120))
     ) {
         this.state = 'holding';
         EventManager.trigger('hand:grabbed-glass', point);

@@ -13,6 +13,7 @@ var GameManager = {
     hand: null, 
     glass: null,
     table: null,
+    coaster: null,
     people: [],
     
     init: function(canvasIds, width, height) {
@@ -22,6 +23,7 @@ var GameManager = {
         this.addGlass(_.extend({}, Glass));
         this.addTable(_.extend({}, Table));
         this.addPeople();
+        this.addCoaster(_.extend({}, Coaster));
     },
 
     addPeople: function() {
@@ -65,6 +67,11 @@ var GameManager = {
     addHand: function(hand) {
         this.hand = hand;
         this.addObject(hand);
+    },
+
+    addCoaster: function(coaster) {
+        this.coaster = coaster;
+        this.addObject(coaster);
     },
 
     addGlass: function(glass) {

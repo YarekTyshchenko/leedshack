@@ -1,8 +1,8 @@
 var Glass = _.extend({}, GameObject, PhysicsObject, Sprite);
 
 Glass.imageSrc = 'images/pint.png';
-Glass.spriteWidth = 50;
-Glass.spriteHeight = 100;
+Glass.spriteWidth = 60;
+Glass.spriteHeight = 150;
 Glass.x = 1600;
 Glass.y = 600;
 Glass.type = 'Glass';

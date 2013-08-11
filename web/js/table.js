@@ -7,15 +7,11 @@ Table.drawCanvas = 'bar';
 Table.x = -20;
 Table.y = 600;
 //Table.physicsX = 130;
+Table.physicsY = 626;
 Table.type = 'Table';
-Table.drawn = 0;
 Table.draw = function(delta) {
-    if (this.disabled || this.drawn > 5) {
-        return false;
-    }
     this.updatePosition(delta);
-    this.drawSprite();
-    this.drawn++; //HACK   
+    this.drawSprite();  
     return true; 
 
 };
