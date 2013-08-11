@@ -92,3 +92,7 @@ Hand.drawSprite = function(delta) {
             this.x * GameManager.scaleRatio, this.y * GameManager.scaleRatio,
             this.scaledWidth, this.scaledHeight);
 };
+
+Hand.getId = function() {
+    return "hand";
+}

@@ -75,3 +75,7 @@ Glass.onGrabbed = function(point) {
 Glass.disable = function(bool) {
 	this.disabled = bool;
 }
+
+Hand.getId = function() {
+    return "glass";
+}

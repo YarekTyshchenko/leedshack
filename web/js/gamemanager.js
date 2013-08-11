@@ -125,6 +125,14 @@ var GameManager = {
     getCanvas: function(name) {
         return this.canvases[name];
     },
+
+    newTurn: function() {
+        var glass = _.extend({}, Glass);
+        var coaster = _.extend({}, Coaster);
+
+        this.addGlass(glass);
+        this.addCoaster(coaster);
+    },
         
     /**
      * Draw the current state of the game, 
