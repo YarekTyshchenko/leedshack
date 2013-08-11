@@ -25,7 +25,7 @@ $(document).ready(function() {
 
     ControllerMouse.init(document.getElementById('effects'));
     ControllerLeap.init({ width: GameManager.width, height: GameManager.height});
-    //GameManager.addController(ControllerLeap);
+    GameManager.addController(ControllerLeap);
     GameManager.addController(ControllerMouse);
     Background.init();
 
