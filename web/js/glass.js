@@ -15,6 +15,10 @@ Glass.draw = function(delta) {
     this.updatePosition(delta);
     this.drawSprite();
 
+    if (! this.isActive()) {
+        EventManager.trigger('glass:stop', {x:this.x, y:this.y});
+    }
+
     return true;
 };
 

@@ -25,6 +25,9 @@ var PhysicsObject = function() {
             new Box2D.Common.Math.b2Vec2(PhysicsWorld.scale(x), PhysicsWorld.scale(y)),
                 body.GetBody().GetWorldCenter()
             );
+        },
+        isActive: function() {
+            return body.GetBody().IsActive();
         }
 	}
 }();
