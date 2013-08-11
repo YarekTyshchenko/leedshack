@@ -29,7 +29,9 @@ var GameManager = {
         var glass = this.glass;
         var isHolding = false;
         var scaleFactor = this.scaleFactor;
+        var previousPoint;
         this.controller.on('update', function(point) {
+            previousPoint = {x: hand.x, y:hand.y};
             hand.x = point.x / self.scaleRatio;
             hand.y = point.y / self.scaleRatio;
 
@@ -67,6 +69,8 @@ var GameManager = {
             if (hand.state == 'holding') {
                 console.log('release the glass');
                 //glass.disable(false);
+                glass.jumpTo(hand.x, hand.y);
+                glass.applyImpulse(hand.x - previousPoint.x, hand.y - previousPoint.y);
             }
             hand.state = 'open';
         })
@@ -148,6 +152,7 @@ var GameManager = {
             gameObject.id = gameObject.getId();
         }
         this.objects[gameObject.id] = gameObject;
+        gameObject.init();
     },
     
     addParticle: function(gameObject) {

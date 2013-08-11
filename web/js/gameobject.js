@@ -16,7 +16,7 @@ var GameObject = {
     drawer: null,
     
     init: function() {
-        _.bindAll(this);
+        
     },
     
     draw : function(delta) {

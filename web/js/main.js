@@ -4,7 +4,8 @@ $(document).ready(function() {
         'people' : true,
         'bar': false,
         'glass' : true,
-        'effects' : true
+        'effects' : true,
+        'physics': false
     };
 
     var width  = document.documentElement.clientWidth;
@@ -12,6 +13,7 @@ $(document).ready(function() {
 
     GameManager.init(canvases, width, height);    
     ControllerMouse.init(document.getElementById('effects'));
+<<<<<<< HEAD
     ControllerLeap.init({ width: GameManager.width, height: GameManager.height});
     GameManager.addController(ControllerLeap);
     //GameManager.addController(ControllerMouse);
@@ -40,5 +42,16 @@ $(document).ready(function() {
         }
     });
     GameManager.addObject(table);
+=======
+    GameManager.addController(ControllerMouse);
+    //Background.init();
+    PhysicsWorld.init();
+>>>>>>> 5f43da3... Fix physics, debug mode is still on
     gameloop();
 });
+
+function reflect(object) {
+    for (i in object) {
+        console.log(i);
+    }
+}

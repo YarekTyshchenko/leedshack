@@ -1,4 +1,4 @@
-var Hand = _.extend({}, GameObject, PhysicsObject, Sprite);
+var Hand = _.extend({}, GameObject, Sprite);
 
 Hand.imageSrc = 'images/hands.png';
 Hand.spriteWidth = 312;

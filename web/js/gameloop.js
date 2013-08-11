@@ -37,6 +37,6 @@ function gameloop() {
     // Drawing code goes here... for example updating an 'x' position:
     ControllerLeap.poll();
     GameManager.draw(dt);
-    
+    PhysicsWorld.step(dt);
 }
 
