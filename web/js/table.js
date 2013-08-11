@@ -1,4 +1,4 @@
-var Table = _.extend({}, GameObject, Sprite);
+var Table = _.extend({}, GameObject, PhysicsFixture, Sprite);
 
 Table.imageSrc = 'images/bar_layer.png';
 Table.spriteWidth = 2072;

@@ -1,4 +1,4 @@
-var Glass = _.extend({}, GameObject, Sprite);
+var Glass = _.extend({}, GameObject, PhysicsObject, Sprite);
 
 Glass.imageSrc = 'images/pint.png';
 Glass.spriteWidth = 50;
@@ -21,7 +21,7 @@ Glass.draw = function(delta) {
 var oldInit = Glass.init;
 
 Glass.init = function() {
-    oldInit();
+    oldInit.apply(this);
     EventManager.on('controller:update', _.bind(Glass.onUpdate, this));
     EventManager.on('hand:grabbed-glass', _.bind(Glass.onGrabbed, this));
     EventManager.on('hand:release', _.bind(Glass.onRelease, this));
@@ -46,6 +46,7 @@ Glass.onUpdate = function(point) {
 
 Glass.onGrabbed = function(point) {
     this.state = 'held';
+    this.disable(true);
 }
 
 Glass.disable = function(bool) {
