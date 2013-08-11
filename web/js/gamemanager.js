@@ -27,10 +27,8 @@ var GameManager = {
         this.addPeople();
         this.addCoaster(_.extend({}, Coaster));
         this.initHud();
-        EventManager.on('glass:stop', _.bind(function(point) {
-            console.log(point);
-            console.log(Math.abs(point.x - this.coaster.x));
-        }, this));
+        EventManager.on('glass:stop', _.bind(GameManager.onGlassStop, this));
+        EventManager.on('glass:fall', _.bind(GameManager.onGlassFall, this));
     },
 
     initHud: function() {
@@ -130,12 +128,44 @@ var GameManager = {
         return this.canvases[name];
     },
 
-    newTurn: function() {
-        var glass = _.extend({}, Glass);
-        var coaster = _.extend({}, Coaster);
+    onGlassStop: function(point) {
+        if (point.x > 1300) {
+            return;
+        }
+        var score = this.calculateScore(point);
+        this.score += score;
+        if (score < 1) {
+            this.loseLife();
+        }
+        this.newTurn();
+    },
 
-        this.addGlass(glass);
-        this.addCoaster(coaster);
+    calculateScore: function(point) {
+        var distance = Math.abs(this.coaster.x - point.x);
+        var score = 600 - distance;
+        score = (score < 0) ? 0 : Math.floor(score / 600 * 5);
+        return score;
+    },
+
+    onGlassFall: function(point) {
+        this.loseLife();
+        this.newTurn();
+    },
+
+    loseLife: function() {
+        this.lives -= 1;
+        if (this.lives == 0) {
+            this.gameOver();
+        }
+    },
+
+    gameOver: function() {
+        console.log("game over");
+    },
+
+    newTurn: function() {
+        this.coaster.move();
+        this.glass.jumpTo(1600, 600);
     },
         
     /**

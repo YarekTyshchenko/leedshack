@@ -23,6 +23,10 @@ Glass.draw = function(delta) {
             EventManager.trigger('glass:stop', previousPosition);
         }
     }
+
+    if (this.y > 1080) {
+        EventManager.trigger('glass:fall');
+    }
     this.drawSprite();
 
     return true;
