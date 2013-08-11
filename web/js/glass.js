@@ -27,12 +27,32 @@ Glass.init = function() {
     EventManager.on('hand:release', _.bind(Glass.onRelease, this));
 };
 
-var previousPoint = {x: this.x, y: this.y};
+Glass.previousPoints = [];
+Glass.counter = 1;
+
+Glass.setPreviousPoint = function(x, y) {
+    this.previousPoints[this.counter%5] = {x: x, y: y};
+    this.counter++;
+};
+
+Glass.getVector = function(x, y) {
+    var length = this.previousPoints.length;
+    var tot_x = this.previousPoints[this.counter % length].x;
+    var tot_y = this.previousPoints[this.counter % length].y;
+    for (var i = 1; i <= length - 1; i++) {
+        var point = this.previousPoints[(this.counter + i) % length];
+        tot_x += point.x ;
+        tot_y += point.y ;
+    }
+    return {x: (x - tot_x/length) * 2, y: (y - tot_y/length) * 2};
+}
 
 Glass.onRelease = function(x, y) {
     this.disable(false);
     this.jumpTo(x, y);
-    this.applyImpulse(x - previousPoint.x, y - previousPoint.y);
+    var vector = this.getVector(x, y);
+    console.log(vector);
+    this.applyImpulse(vector.x, vector.y);
     this.state = 'free';
 }
 
@@ -41,7 +61,7 @@ Glass.onUpdate = function(point) {
         this.x = point.x / GameManager.scaleRatio;
         this.y = point.y / GameManager.scaleRatio;
     }
-    previousPoint = {x: this.x, y: this.y};
+    this.setPreviousPoint(this.x, this.y);
 };
 
 Glass.onGrabbed = function(point) {
