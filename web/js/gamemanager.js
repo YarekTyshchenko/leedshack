@@ -29,6 +29,7 @@ var GameManager = {
         this.initHud();
         EventManager.on('glass:stop', _.bind(function(point) {
             console.log(point);
+            console.log(Math.abs(point.x - this.coaster.x));
         }, this));
     },
 

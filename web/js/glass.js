@@ -7,6 +7,7 @@ Glass.x = 1600;
 Glass.y = 600;
 Glass.type = 'Glass';
 Glass.state = 'rest';
+Glass._released = false;
 
 Glass.draw = function(delta) {
     if (this.disabled) {
@@ -17,7 +18,7 @@ Glass.draw = function(delta) {
     var previousPosition = {x: this.x, y: this.y};
     this.updatePosition(delta);
     if (this.x == previousPosition.x && this.y == previousPosition.y) {
-        if (this.state == 'free' && (!this.isAwake())) {
+        if (this.state == 'free' && this._released && (!this.isAwake())) {
             this.state = 'rest';
             EventManager.trigger('glass:stop', previousPosition);
         }
@@ -62,6 +63,7 @@ Glass.onRelease = function(x, y) {
     var vector = this.getVector(x, y);
     this.applyImpulse(vector.x, vector.y);
     this.state = 'free';
+    this._released = true;
 }
 
 Glass.onUpdate = function(point) {
