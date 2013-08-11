@@ -32,6 +32,11 @@ var GameManager = {
         this.controller.on('update', function(point) {
             hand.x = point.x / self.scaleRatio;
             hand.y = point.y / self.scaleRatio;
+
+            if (hand.state == 'holding') {
+                glass.x = hand.x;
+                glass.y = hand.y
+            }
         });
         this.controller.on('grab', function(point){
             console.log('grab');
@@ -50,7 +55,7 @@ var GameManager = {
             ) {
                 console.log('grabbed the glass!');
                 hand.state = 'holding';
-                glass.disable(true);
+                //glass.disable(true);
                 return;
             }
             hand.state = 'closed';
@@ -61,7 +66,7 @@ var GameManager = {
             }
             if (hand.state == 'holding') {
                 console.log('release the glass');
-                glass.disable(false);
+                //glass.disable(false);
             }
             hand.state = 'open';
         })
