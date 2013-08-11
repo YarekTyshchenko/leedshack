@@ -30,22 +30,26 @@ var GameManager = {
             _.extend({}, Person, {
                 imageSrc : 'images/man1.png',
                 x : 100, 
-                y: y
+                y: y,
+                speed: 5
             }),
             _.extend({}, Person, {
                 imageSrc : 'images/woman1.png',
                 x : 350, 
-                y: y
+                y: y,
+                speed:10
             }),
             _.extend({}, Person, {
                 imageSrc : 'images/man2.png',
                 x : 650, 
-                y: y
+                y: y,
+                speed: 0
             }),
             _.extend({}, Person, {
                 imageSrc : 'images/woman2.png',
                 x : 900, 
-                y: y
+                y: y,
+                speed: 12
             })
         ];
         for (var i = 0; i <= people.length -1; i++) {
