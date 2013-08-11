@@ -16,6 +16,11 @@ GameOverScreen.draw = function(delta) {
     context.fillText(
         'Game Over', GameManager.width/2, GameManager.height-100
     );
+    context.font = "bold " + size * 0.5 + "px sans-serif";
+    context.fillText(
+        'Click to try again', GameManager.width/2, GameManager.height-50
+    );
+
     return true; 
 
 };

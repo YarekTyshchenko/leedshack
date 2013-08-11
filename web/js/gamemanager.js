@@ -18,6 +18,7 @@ var GameManager = {
     lives: 3,
     score: 0,
     requestId: null,
+    state: 'started',
     
     init: function(canvasIds, width, height) {
         this.setDimensions(width, height);
@@ -30,12 +31,21 @@ var GameManager = {
         this.initHud();
         EventManager.on('glass:stop', _.bind(GameManager.onGlassStop, this));
         EventManager.on('glass:fall', _.bind(GameManager.onGlassFall, this));
+        EventManager.on('controller:grab', _.bind(GameManager.onGrab, this));
+    },
+
+    onGrab: function() {
+        if (this.state == 'stopped') {
+            this.start();
+        }
     },
 
     start: function() {
         this.score = 0;
         this.lives = 5;
         this.newTurn();
+        this.state = 'started';
+        delete this.objects['game-over'];
         gameloop();
     },
 
@@ -174,6 +184,7 @@ var GameManager = {
 
     stop: function() {
         window.cancelAnimationFrame(GameManager.requestId);
+        GameManager.state = 'stopped';
     },
     newTurn: function() {
         this.coaster.move();
