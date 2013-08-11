@@ -64,14 +64,14 @@ var ControllerLeap = function(){
 		};
 		if ((hand.fingers.length <= 2) != grabbed) {
 			if (hand.fingers.length <= 2) {
-				leap.trigger("grab", pointer);
+				EventManager.trigger("controller:grab", pointer);
 
 			} else {
-				leap.trigger("release", pointer);
+				EventManager.trigger("controller:release", pointer);
 			}
 			grabbed = (hand.fingers.length <= 2);
 		} else {
-			leap.trigger("update", pointer);
+			EventManager.trigger("controller:update", pointer);
 		}
 	};
 
@@ -97,6 +97,5 @@ var ControllerLeap = function(){
     	}
 
     };
-    _.extend(leap, Backbone.Events);
     return leap;
 }();

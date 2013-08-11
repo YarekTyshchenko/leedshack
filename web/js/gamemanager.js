@@ -66,7 +66,7 @@ var GameManager = {
         var isHolding = false;
         var scaleFactor = this.scaleFactor;
         var previousPoint;
-        this.controller.on('update', function(point) {
+        EventManager.on('controller:update', function(point) {
             previousPoint = {x: hand.x, y:hand.y};
             hand.x = point.x / self.scaleRatio;
             hand.y = point.y / self.scaleRatio;
@@ -76,34 +76,30 @@ var GameManager = {
                 glass.y = hand.y
             }
         });
-        this.controller.on('grab', function(point){
-            console.log('grab');
+        EventManager.on('controller:grab', function(point){
             if (hand.state == 'closed') {
                 return;
             }
             hand.x = point.x / self.scaleRatio;
             hand.y = point.y / self.scaleRatio;
-            console.log(hand);
             
             // This isn't as accurate as it could be
             if (hand.x <  ((glass.x + 70))
-            && (hand.x >= (glass.x - 60)) 
-            && (hand.y >= (glass.y - 120))
-            && (hand.y <  ((glass.y) + 7))
+                && (hand.x >= (glass.x - 60)) 
+                && (hand.y >= (glass.y - 120))
+                && (hand.y <  ((glass.y) + 7))
             ) {
-                console.log('grabbed the glass!');
                 hand.state = 'holding';
                 glass.disable(true);
                 return;
             }
             hand.state = 'closed';
         });
-        this.controller.on('release', function(){
+        EventManager.on('controller:release', function(){
             if (hand.state == 'open') {
                 return;
             }
             if (hand.state == 'holding') {
-                console.log('release the glass');
                 glass.disable(false);
                 glass.jumpTo(hand.x, hand.y);
                 glass.applyImpulse(hand.x - previousPoint.x, hand.y - previousPoint.y);
@@ -166,12 +162,12 @@ var GameManager = {
     draw: function(delta) {
         this.clearCanvases();
 
-        for (i in this.objects) {
+        for (var i in this.objects) {
             if (!this.objects[i].draw(delta)) {
                 delete(this.objects[i]);
             }
         }
-        for (i in this.particles) {
+        for (var i in this.particles) {
             if (!this.particles[i].draw(delta)) {
                 delete(this.particles[i]);
             }
@@ -193,10 +189,6 @@ var GameManager = {
     
     addParticle: function(gameObject) {
         this.particles[gameObject.id] = gameObject;
-    }, 
-    
-    bindEvents: function() {
-
     }
     
 }
