@@ -17,7 +17,7 @@ Glass.draw = function(delta) {
     var previousPosition = {x: this.x, y: this.y};
     this.updatePosition(delta);
     if (this.x == previousPosition.x && this.y == previousPosition.y) {
-        if (this.state == 'free') {
+        if (this.state == 'free' && (!this.isAwake())) {
             this.state = 'rest';
             EventManager.trigger('glass:stop', previousPosition);
         }
